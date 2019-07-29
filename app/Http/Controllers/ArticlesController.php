@@ -31,7 +31,7 @@ class ArticlesController extends Controller
       $user = User::find($id);
       $articles = $user->articles;
       $data = [
-        'articles'=> $articles,
+        'articles'=>$articles,
         'user'=>$user
       ];
       return view('articles.userArticle')->with($data);
@@ -65,7 +65,13 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-        //
+      $article = Article::find($id);
+      $user = $article->user;
+      $data =[
+        'article'=>$article,
+        'user'=>$user
+      ];
+      return view('articles.show')->with($data);
     }
 
     /**
