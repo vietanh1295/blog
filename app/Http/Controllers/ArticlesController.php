@@ -27,7 +27,15 @@ class ArticlesController extends Controller
       }
       return view('articles.index')->with('articles',$articles);
     }
-
+    public function userArticle($id){
+      $user = User::find($id);
+      $articles = $user->articles;
+      $data = [
+        'articles'=> $articles,
+        'user'=>$user
+      ];
+      return view('articles.userArticle')->with($data);
+    }
     /**
      * Show the form for creating a new resource.
      *
