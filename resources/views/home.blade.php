@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -14,10 +13,10 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in!<br>
+                <a class="btn btn-success" href="articles/create" name="button">New Post</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
