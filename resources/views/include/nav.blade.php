@@ -37,6 +37,9 @@
                           <a class="dropdown-item" href="/home">
                               Home
                           </a>
+                          <a class="dropdown-item" href="/articles/manage">
+                              Manage my posts
+                          </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

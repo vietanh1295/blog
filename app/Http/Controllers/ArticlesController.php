@@ -81,6 +81,13 @@ class ArticlesController extends Controller
       ];
       return view('articles.show')->with($data);
     }
+    public function manage(){
+      $user_id = auth()->user()->id;
+      $user=User::find($user_id);
+      $articles=$user->articles;
+      // var_dump($articles);
+      return view('articles.manage')->with('articles',$articles);
+    }
 
     /**
      * Show the form for editing the specified resource.
