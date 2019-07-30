@@ -11,23 +11,23 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <!-- <div id="app"> -->
 
         @include('include.nav')
-        <main class="py-4">
+        <!-- <main class="py-4"> -->
           <div class="container">
             @yield('content')
           </div>
-        </main>
-    </div>
+        <!-- </main> -->
+    <!-- </div> -->
 </body>
 </html>
