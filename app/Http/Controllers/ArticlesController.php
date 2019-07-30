@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\User;
+use App\Http\Requests\StoreBlogPost;
 class ArticlesController extends Controller
 {
     /**
@@ -43,7 +44,7 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
     }
 
     /**
@@ -52,9 +53,16 @@ class ArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBlogPost $request)
     {
-        //
+      $validated = $request->validated();
+      $article = new Article;
+      $article->title=$request->input('title');
+      $article->body=$request->input('body');
+      $article->user_id=auth()->user()->id;
+
+      $article->save();
+      return $article;
     }
 
     /**
