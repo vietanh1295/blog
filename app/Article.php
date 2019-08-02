@@ -51,6 +51,11 @@ class Article extends Model
     $this->save();
     return $this;
   }
+  public function remove($id){
+    $article = Article::find($id);
+    $article->delete();
+    return $article;
+  }
   public function user(){
     return $this->belongsTo('App\User');
   }

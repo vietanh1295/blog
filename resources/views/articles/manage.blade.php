@@ -69,7 +69,15 @@
     $("#body").val(data.body);
   }
   function deleteData(id){
-    console.log(id)
+    axios.delete(`/articles/${id}`, {
+  })
+  .then(function (data) {
+    $(`#article${data.data.id}`).addClass('highlight-danger');
+    setTimeout(function(){$(`#article${data.data.id}`).remove()}, 800);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   }
   $('#update').submit(function(e){
     e.preventDefault();
@@ -79,12 +87,6 @@
       body: $('#body').val()
     })
     .then(function (data) {
-      $('#message').html(
-        `<div class="alert alert-success">
-        ${data.statusText}
-        </div>`)
-      $('.alert').fadeOut(3000)
-      // console.log(data.data.id)
       if(data.data.body.length>50){
         body=data.data.body.substr(0,50)+"...";
       }
@@ -106,9 +108,9 @@
           <td><button class="btn" onclick='updateForm(${jsondata})' data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button>
           <button class="btn" onclick="deleteData(${data.data.id})"><span class="fas fa-trash"></span></button></td>
         `)
-      $(`#article${data.data.id}`).addClass('highlight');
+      $(`#article${data.data.id}`).addClass('highlight-success');
       $('#close').click();
-      setTimeout(function(){$(`#article${data.data.id}`).removeClass('highlight')}, 2500);
+      setTimeout(function(){$(`#article${data.data.id}`).removeClass('highlight-success')}, 2500);
     })
     .catch(function (error) {
       console.log(error.response.data.errors);
