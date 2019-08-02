@@ -19,17 +19,13 @@ class ArticlesController extends Controller
       }
     public function index()
     {
-      $article = new Article;
-      $articles = $article->show();
+      $article = new Article();
+      $articles = $article->index();
       return view('articles.index')->with('articles',$articles);
     }
     public function userArticle($id){
-      $user = User::find($id);
-      $articles = $user->articles;
-      $data = [
-        'articles'=>$articles,
-        'user'=>$user
-      ];
+      $article = new Article;
+      $data = $article->userArticle($id);
       return view('articles.userArticle')->with($data);
     }
     /**
@@ -52,12 +48,7 @@ class ArticlesController extends Controller
     {
       $validated = $request->validated();
       $article = new Article;
-      $article->title=$request->input('title');
-      $article->body=$request->input('body');
-      $article->user_id=auth()->user()->id;
-
-      $article->save();
-      return $article;
+      $article->store($request);
     }
 
     /**
@@ -68,19 +59,13 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-      $article = Article::find($id);
-      $user = $article->user;
-      $data =[
-        'article'=>$article,
-        'user'=>$user
-      ];
+      $article = new Article;
+      $data = $article->show($id);
       return view('articles.show')->with($data);
     }
     public function manage(){
-      $user_id = auth()->user()->id;
-      $user=User::find($user_id);
-      $articles=$user->articles;
-      // var_dump($articles);
+      $article = new Article;
+      $articles = $article->manage();
       return view('articles.manage')->with('articles',$articles);
     }
 
@@ -104,11 +89,9 @@ class ArticlesController extends Controller
      */
     public function update(StoreBlogPost $request, $id)
     {
-        $article = Article::find($id);
-        $article->title = $request->input('title');
-        $article->body= $request->input('body');
-        $article->save();
-        return $article;
+        $article=Article::find($id);
+        $newArticle=$article->replace($request);
+        return $newArticle;
     }
 
     /**
