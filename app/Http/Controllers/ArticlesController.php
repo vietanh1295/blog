@@ -19,13 +19,8 @@ class ArticlesController extends Controller
       }
     public function index()
     {
-      $articles = Article::paginate(10);
-      for($i=0; $i<count($articles);$i++){
-       $user_id = $articles[$i]->user_id;
-       $user=User::find($user_id);
-       $name = $user->name;
-       $articles[$i]->author = $name;
-      }
+      $article = new Article;
+      $articles = $article->show();
       return view('articles.index')->with('articles',$articles);
     }
     public function userArticle($id){
@@ -107,9 +102,13 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreBlogPost $request, $id)
     {
-        //
+        $article = Article::find($id);
+        $article->title = $request->input('title');
+        $article->body= $request->input('body');
+        $article->save();
+        return $article;
     }
 
     /**
@@ -120,6 +119,7 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = Article::find($id);
+        $article->delete();
     }
 }

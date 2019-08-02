@@ -1,0 +1,20 @@
+.highlight{
+  -webkit-animation-name: highlight; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  animation-name: highlight;
+  animation-duration: 2s;
+}
+/* .highlight{
+  background:transparent;
+} */
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes highlight {
+  from {background-color: #5ea12b;}
+  to {background-color: transparent;}
+}
+
+/* Standard syntax */
+@keyframes highlight {
+  from {background-color: #5ea12b;}
+  to {background-color: transparent;}
+}
