@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<button class="btn btn-success" onclick="removeForm()" data-toggle="modal" data-target="#myModal">Add new post</button>
 <table id="example" class="table">
   <thead>
     <tr>
@@ -40,7 +41,7 @@
           <div id="message" style="width:100%; height:50px;">
 
           </div>
-          {{ Form::open(array('url' => 'articles', 'method' => 'PUT','id'=>'update')) }}
+          {{ Form::open(array('url' => '', 'method' => '','id'=>'update')) }}
           {{Form::number('id', '', array('class'=>'d-none','id'=>'article_id'))}}
           <div class="form-group">
           {{Form::label('title', 'Title')}}
@@ -50,7 +51,7 @@
           {{Form::label('body', 'Body')}}
           {{Form::textarea('body', '', array('class'=>'form-control','id'=>'body'))}}
           </div>
-          {{Form::submit('Submit',array('class'=>'btn btn-success'))}}
+          <button type="button" class="btn btn-success" id="submit" name="button">Submit</button>
           {{ Form::close() }}
         </div>
 
@@ -67,20 +68,35 @@
     $("#article_id").val(data.id);
     $("#title").val(data.title);
     $("#body").val(data.body);
+    $("#submit").attr("onclick","edit()");
+  }
+  function removeForm(){
+    $("#article_id").val('');
+    $("#title").val('');
+    $("#body").val('');
+    $("#submit").attr("onclick","add()");
   }
   function deleteData(id){
     axios.delete(`/articles/${id}`, {
   })
   .then(function (data) {
     $(`#article${data.data.id}`).addClass('highlight-danger');
-    setTimeout(function(){$(`#article${data.data.id}`).remove()}, 800);
+    setTimeout(
+      function(){
+        $('.highlight-danger').removeClass('highlight-danger');
+        $(`#article${data.data.id}`).remove();
+
+  }, 800);
+
   })
   .catch(function (error) {
     console.log(error);
   });
   }
-  $('#update').submit(function(e){
-    e.preventDefault();
+  function add(){
+    alert("aaaa")
+  }
+  function edit(){
     id = $('#article_id').val();
     axios.put(`/articles/${id}`, {
       title: $('#title').val(),
@@ -110,7 +126,7 @@
         `)
       $(`#article${data.data.id}`).addClass('highlight-success');
       $('#close').click();
-      setTimeout(function(){$(`#article${data.data.id}`).removeClass('highlight-success')}, 2500);
+      setTimeout(function(){$('.highlight-success').removeClass('highlight-success')}, 2500);
     })
     .catch(function (error) {
       console.log(error.response.data.errors);
@@ -123,6 +139,6 @@
         </div>`)
         $('.alert').fadeOut(3000)
     });
-  })
+  }
 </script>
 @endsection
