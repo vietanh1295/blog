@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\Nounderscore;
 class StoreBlogPost extends FormRequest
 {
     /**
@@ -24,7 +24,11 @@ class StoreBlogPost extends FormRequest
     public function rules()
     {
         return [
-          'title' => 'required|max:255',
+          'title' => [
+            'required',
+            'max:255',
+            new Nounderscore
+        ],
           'body' => 'required'
         ];
     }

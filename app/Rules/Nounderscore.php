@@ -25,7 +25,7 @@ class Nounderscore implements Rule
      */
     public function passes($attribute, $value)
     {
-        return !strpos($value, '_');
+        return (strpos($value, '_'));
     }
 
     /**

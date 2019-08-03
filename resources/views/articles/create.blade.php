@@ -17,7 +17,7 @@
 <script>
 $("#create").submit(function(e){
   e.preventDefault();
-  axios.post('/articles', {
+  axios.post('http://localhost/blog/public/articles', {
     title: $('#title').val(),
     body: $('#body').val()
   })
