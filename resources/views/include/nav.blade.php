@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link "href="/articles">Posts</a>
+                <a class="nav-link "href="{{ url('/') }}/articles">Posts</a>
               </li>
             </ul>
 
@@ -37,7 +37,7 @@
                           <a class="dropdown-item" href="/home">
                               Home
                           </a>
-                          <a class="dropdown-item" href="/articles/manage">
+                          <a class="dropdown-item" href="{{ url('/') }}/articles/manage">
                               Manage my posts
                           </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"

@@ -49,6 +49,7 @@ class ArticlesController extends Controller
       $validated = $request->validated();
       $article = new Article;
       $article->store($request);
+      return $article;
     }
 
     /**
