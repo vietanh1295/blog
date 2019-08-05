@@ -122,7 +122,7 @@
           <button class="btn" onclick="deleteData(${data.data.id})"><span class="fas fa-trash"></span></button></td>
       </tr>
         `)
-    
+
       $('#close').click();
       setTimeout(function(){$('.highlight-success').removeClass('highlight-success')}, 2500);
   })
