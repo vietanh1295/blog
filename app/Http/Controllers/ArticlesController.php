@@ -19,22 +19,13 @@ class ArticlesController extends Controller
       }
     public function index()
     {
-      $articles = Article::paginate(10);
-      for($i=0; $i<count($articles);$i++){
-       $user_id = $articles[$i]->user_id;
-       $user=User::find($user_id);
-       $name = $user->name;
-       $articles[$i]->author = $name;
-      }
+      $article = new Article();
+      $articles = $article->index();
       return view('articles.index')->with('articles',$articles);
     }
     public function userArticle($id){
-      $user = User::find($id);
-      $articles = $user->articles;
-      $data = [
-        'articles'=>$articles,
-        'user'=>$user
-      ];
+      $article = new Article;
+      $data = $article->userArticle($id);
       return view('articles.userArticle')->with($data);
     }
     /**
@@ -57,11 +48,7 @@ class ArticlesController extends Controller
     {
       $validated = $request->validated();
       $article = new Article;
-      $article->title=$request->input('title');
-      $article->body=$request->input('body');
-      $article->user_id=auth()->user()->id;
-
-      $article->save();
+      $article->store($request);
       return $article;
     }
 
@@ -73,13 +60,14 @@ class ArticlesController extends Controller
      */
     public function show($id)
     {
-      $article = Article::find($id);
-      $user = $article->user;
-      $data =[
-        'article'=>$article,
-        'user'=>$user
-      ];
+      $article = new Article;
+      $data = $article->show($id);
       return view('articles.show')->with($data);
+    }
+    public function manage(){
+      $article = new Article;
+      $articles = $article->manage();
+      return view('articles.manage')->with('articles',$articles);
     }
 
     /**
@@ -100,9 +88,11 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreBlogPost $request, $id)
     {
-        //
+        $article=Article::find($id);
+        $newArticle=$article->replace($request);
+        return $newArticle;
     }
 
     /**
@@ -113,6 +103,7 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $article = new Article;
+        return $article->remove($id);
     }
 }

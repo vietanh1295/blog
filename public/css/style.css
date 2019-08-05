@@ -1,0 +1,40 @@
+.highlight-success{
+  -webkit-animation-name: highlight-success; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  animation-name: highlight-success;
+  animation-duration: 2s;
+}
+/* .highlight{
+  background:transparent;
+} */
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes highlight-success {
+  from {background-color: green;}
+  to {background-color: transparent;}
+}
+
+/* Standard syntax */
+@keyframes highlight-success {
+  from {background-color: green;}
+  to {background-color: transparent;}
+}
+.highlight-danger{
+  -webkit-animation-name: highlight-danger; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  animation-name: highlight-danger;
+  animation-duration: 1s;
+}
+/* .highlight{
+  background:transparent;
+} */
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes highlight-danger {
+  from {background-color: red;}
+  to {background-color: transparent;}
+}
+
+/* Standard syntax */
+@keyframes highlight-danger {
+  from {background-color: red;}
+  to {background-color: transparent;}
+}

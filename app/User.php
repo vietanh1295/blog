@@ -37,6 +37,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function articles(){
-      return $this->hasMany('App\Article');
+      return $this->hasMany('App\Article')->orderBy("created_at","DESC");
     }
 }

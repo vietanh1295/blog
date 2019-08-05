@@ -17,7 +17,7 @@
 <script>
 $("#create").submit(function(e){
   e.preventDefault();
-  axios.post('/articles', {
+  axios.post('{{ url('/') }}/articles', {
     title: $('#title').val(),
     body: $('#body').val()
   })
@@ -29,7 +29,7 @@ $("#create").submit(function(e){
     $('.alert').fadeOut(3000)
   })
   .catch(function (error) {
-    console.log(error.response.data.errors);
+    // console.log(error.response.data.errors);
     var errors = Object.keys(error.response.data.errors) ;
     var error_name = errors[0];
     console.log(error_name)
