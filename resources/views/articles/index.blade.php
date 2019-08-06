@@ -8,7 +8,7 @@
     <div class="card-body">
       <h4 class="card-title">{{$article->title}}</h4>
       <p class="card-text"> {{str_limit($article->body, 100)}} <a href="articles/{{$article->id}}">See more</a></p>
-      <h5>Author:</h5><a href="user/{{$article->user_id}}">{{$article->author}}</a>
+      <h5>Author:</h5><a href="{{ url('/') }}/articles/user/{{$article->user_id}}">{{$article->author}}</a>
     </div>
 </div>
 @endforeach

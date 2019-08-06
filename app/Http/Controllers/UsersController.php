@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Article;
+use App\Http\Requests\StoreBlogPost;
 class UsersController extends Controller
 {
     /**
@@ -40,7 +41,13 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+    }
+    public function storeArticle(StoreBlogPost $request, $id){
+      $validated = $request->validated();
+      $article = new Article;
+      $article->store($request, $id);
+      return $article;
     }
 
     /**
@@ -51,7 +58,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+      $user = new User;
+      $data = $user->show($id);
+      return view('articles.manage')->with($data);
     }
 
     /**

@@ -66,8 +66,8 @@ class ArticlesController extends Controller
     }
     public function manage(){
       $article = new Article;
-      $articles = $article->manage();
-      return view('articles.manage')->with('articles',$articles);
+      $data = $article->manage(0);
+      return view('articles.manage')->with($data);
     }
 
     /**

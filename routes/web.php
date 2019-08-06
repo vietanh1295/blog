@@ -16,8 +16,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('user/{id}','ArticlesController@userArticle');
+Route::get('articles/user/{id}','ArticlesController@userArticle');
 Route::get('articles/manage','ArticlesController@manage');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('articles', 'ArticlesController');
 Route::resource('users', 'UsersController');
+Route::post('users/article/${id}', 'UsersController@storeArticle');

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Article;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -36,6 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function show($id){
+      $article = new Article;
+      $data = $article->manage($id);
+      return $data;
+    }
     public function articles(){
       return $this->hasMany('App\Article')->orderBy("created_at","DESC");
     }
