@@ -7,6 +7,7 @@ use App\User;
 use App\Article;
 use App\Http\Requests\StoreBlogPost;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreUserAccount;
 class UsersController extends Controller
 {
     /**
@@ -40,7 +41,7 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserAccount $request)
     {
       $user = new User;
       $user->name = $request->input('name');

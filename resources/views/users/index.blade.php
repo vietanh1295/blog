@@ -81,12 +81,13 @@ function updateForm(data){
   $("#name").val(data.name);
   $("#email").val(data.email);
   $("#role").val(data.role_id);
+  $("#password").val('');
   $("#submit").attr("onclick","edit()");
 }
 function removeForm(){
   $("#name").val('');
   $("#email").val('');
-  $("#pwd").val('');
+  $("#password").val('');
   $("#submit").attr("onclick","add()");
 }
 function add(){
@@ -114,13 +115,13 @@ function add(){
     // setTimeout(function(){$('.highlight-success').removeClass('highlight-success')}, 2500);
 })
 .catch(function (error) {
-  // var errors = Object.keys(error.response.data.errors) ;
-  //   var error_name = errors[0];
-  //   $('#message').html(
-  //     `<div class="alert alert-danger">
-  //     ${error.response.data.errors[error_name]}
-  //     </div>`)
-  //     $('.alert').fadeOut(3000)
+  var errors = Object.keys(error.response.data.errors) ;
+    var error_name = errors[0];
+    $('#message').html(
+      `<div class="alert alert-danger">
+      ${error.response.data.errors[error_name]}
+      </div>`)
+      $('.alert').fadeOut(3000)
 });
 }
 </script>
