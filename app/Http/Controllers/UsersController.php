@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Article;
 use App\Http\Requests\StoreBlogPost;
+use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
     /**
@@ -19,7 +20,7 @@ class UsersController extends Controller
       }
     public function index()
     {
-      $users = User::all();
+      $users = User::orderBy('created_at','DESC')->get();
       return view('users.index')->with('users', $users);
     }
 
@@ -41,7 +42,13 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
+      $user = new User;
+      $user->name = $request->input('name');
+      $user->email = $request->input('email');
+      $user->role_id = $request->input('role_id');
+      $user->password = Hash::make($request->input('password'));
+      $user->save();
+      return $user;
     }
     public function storeArticle(StoreBlogPost $request, $id){
       $validated = $request->validated();
