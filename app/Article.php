@@ -9,10 +9,10 @@ class Article extends Model
   public function index(){
     $articles = Article::paginate(10);
     for($i = 0; $i<count($articles); $i++){
-     $user_id = $articles[$i]->user_id;
-     $user = User::find($user_id);
-     $name = $user->name;
-     $articles[$i]->author = $name;
+      $user_id = $articles[$i]->user_id;
+      $user = User::find($user_id);
+      $name = $user->name;
+      $articles[$i]->author = $name;
     }
     return $articles;
   }
@@ -45,7 +45,7 @@ class Article extends Model
       $user_id = $id;
     }
     elseif($id == 0){
-    $user_id = auth()->user()->id;
+      $user_id = auth()->user()->id;
     }
     $user=User::find($user_id);
     $articles = $user->articles;

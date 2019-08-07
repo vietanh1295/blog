@@ -3,9 +3,9 @@
 <button class="btn btn-success" onclick="removeForm()" data-toggle="modal" data-target="#myModal">Add new post</button>
 <h2>Posts written by
   @if(auth()->user()->role_id == 0)
-    you
+  you
   @elseif(auth()->user()->role_id == 1)
-    {{$user->name}}
+  {{$user->name}}
   @endif
 </h2>
 <table id="example" class="table">
@@ -27,13 +27,13 @@
       <td>{{$article->created_at}}</td>
       <td>{{$article->updated_at}}</td>
       <td><button class="btn" onclick="updateForm({{$article}})" data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button>
-      <button class="btn" onclick="deleteData({{$article->id}})"><span class="fas fa-trash"></span></button></td>
-    </tr>
-    @endforeach
-    @endif
-  </tbody>
-</table>
-<div class="modal fade" id="myModal">
+        <button class="btn" onclick="deleteData({{$article->id}})"><span class="fas fa-trash"></span></button></td>
+      </tr>
+      @endforeach
+      @endif
+    </tbody>
+  </table>
+  <div class="modal fade" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
 
@@ -52,12 +52,12 @@
           {{Form::number('id', '', array('class'=>'d-none','id'=>'article_id'))}}
           {{Form::number('user_id', $user->id, array('class'=>'d-none','id'=>'user_id'))}}
           <div class="form-group">
-          {{Form::label('title', 'Title')}}
-          {{Form::text('title', '', array('class'=>'form-control','id'=>'title'))}}
+            {{Form::label('title', 'Title')}}
+            {{Form::text('title', '', array('class'=>'form-control','id'=>'title'))}}
           </div>
           <div class="form-group">
-          {{Form::label('body', 'Body')}}
-          {{Form::textarea('body', '', array('class'=>'form-control','id'=>'body'))}}
+            {{Form::label('body', 'Body')}}
+            {{Form::textarea('body', '', array('class'=>'form-control','id'=>'body'))}}
           </div>
           <button type="button" class="btn btn-success" id="submit" name="button">Submit</button>
           {{ Form::close() }}
@@ -69,5 +69,5 @@
         </div>
 
       </div>
-    <script type="text/javascript" src="{{ asset('js/crudposts.js') }}"></script>
-@endsection
+      <script type="text/javascript" src="{{ asset('js/crudposts.js') }}"></script>
+      @endsection
