@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 use App\Article;
 class User extends Authenticatable
 {
@@ -36,6 +37,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function index(){
+      $users = User::orderBy('created_at','DESC')->get();
+      return $users;
+    }
+    public function store($request){
+      $this->name = $request->input('name');
+      $this->email = $request->input('email');
+      $this->role_id = $request->input('role_id');
+      $this->password = Hash::make($request->input('password'));
+      $this->save();
+      return $this;
+    }
     public function show($id){
       $article = new Article;
       $data = $article->manage($id);

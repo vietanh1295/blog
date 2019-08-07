@@ -47,7 +47,7 @@
           <div id="message" style="width:100%; height:50px;">
 
           </div>
-          {{ Form::open(array('url' => '', 'method' => '','id'=>'update')) }}
+          <input type="number" class="d-none" class="form-control" id="user_id">
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" name="name" class="form-control" id="name">
@@ -67,7 +67,6 @@
             <input type="password" name="pwd"  class="form-control" id="password">
           </div>
           <button type="button" class="btn btn-success" id="submit" name="button">Submit</button>
-          {{ Form::close() }}
         </div>
 
         <!-- Modal footer -->
@@ -78,6 +77,7 @@
       </div>
 <script>
 function updateForm(data){
+  $("#user_id").val(data.id);
   $("#name").val(data.name);
   $("#email").val(data.email);
   $("#role").val(data.role_id);
@@ -85,6 +85,7 @@ function updateForm(data){
   $("#submit").attr("onclick","edit()");
 }
 function removeForm(){
+  $("#user_id").val('');
   $("#name").val('');
   $("#email").val('');
   $("#password").val('');
@@ -98,13 +99,13 @@ function add(){
     role_id: $('#role').val()
 })
 .then(function (data) {
-  console.log(data.data.name);
     var jsondata = JSON.stringify(data.data);
+    role = data.data.role_id == 1 ? "admin" : "user";
     $(`tbody`).prepend(`
     <tr id="user${data.data.id}" class="highlight-success">
         <td><a href="{{ url('/') }}/users/${data.data.id}">${data.data.name}</a></td>
         <td>${data.data.email}</td>
-        <td>dfsdfs</td>
+        <td>${role}</td>
         <td>${data.data.created_at}</td>
         <td>${data.data.updated_at}</td>
         <td><button class="btn" onclick='updateForm(${jsondata})' data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button></td>
@@ -113,6 +114,39 @@ function add(){
 
     $('#close').click();
     // setTimeout(function(){$('.highlight-success').removeClass('highlight-success')}, 2500);
+})
+.catch(function (error) {
+  var errors = Object.keys(error.response.data.errors) ;
+    var error_name = errors[0];
+    $('#message').html(
+      `<div class="alert alert-danger">
+      ${error.response.data.errors[error_name]}
+      </div>`)
+      $('.alert').fadeOut(3000)
+});
+}
+function edit(){
+  id = $("#user_id").val();
+  axios.put(`{{ url('/') }}/users/${id}`, {
+    name: $('#name').val(),
+    email: $('#email').val(),
+    password: $('#password').val(),
+    role_id: $('#role').val()
+})
+.then(function (data) {
+    var jsondata = JSON.stringify(data.data);
+    role = data.data.role_id == 1 ? "admin" : "user";
+    $(`#user${data.data.id}`).html(`
+        <td><a href="{{ url('/') }}/users/${data.data.id}">${data.data.name}</a></td>
+        <td>${data.data.email}</td>
+        <td>${role}</td>
+        <td>${data.data.created_at}</td>
+        <td>${data.data.updated_at}</td>
+        <td><button class="btn" onclick='updateForm(${jsondata})' data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button></td>
+      `);
+    $(`#user${data.data.id}`).addClass('highlight-success');
+    $('#close').click();
+    setTimeout(function(){$('.highlight-success').removeClass('highlight-success')}, 2500);
 })
 .catch(function (error) {
   var errors = Object.keys(error.response.data.errors) ;

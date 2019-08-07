@@ -21,7 +21,8 @@ class UsersController extends Controller
       }
     public function index()
     {
-      $users = User::orderBy('created_at','DESC')->get();
+      $user = new User;
+      $users = $user->index();
       return view('users.index')->with('users', $users);
     }
 
@@ -44,15 +45,9 @@ class UsersController extends Controller
     public function store(StoreUserAccount $request)
     {
       $user = new User;
-      $user->name = $request->input('name');
-      $user->email = $request->input('email');
-      $user->role_id = $request->input('role_id');
-      $user->password = Hash::make($request->input('password'));
-      $user->save();
-      return $user;
+      return $user->store($request);
     }
     public function storeArticle(StoreBlogPost $request, $id){
-      $validated = $request->validated();
       $article = new Article;
       $article->store($request, $id);
       return $article;
@@ -79,7 +74,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -89,9 +84,15 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUserAccount $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->role_id = $request->input('role_id');
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+        return $user;
     }
 
     /**
