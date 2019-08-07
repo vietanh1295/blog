@@ -8,6 +8,7 @@ use App\Article;
 use App\Http\Requests\StoreBlogPost;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserAccount;
+use App\Http\Requests\UpdateUserAccount;
 class UsersController extends Controller
 {
     /**
@@ -84,11 +85,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUserAccount $request, $id)
+    public function update(UpdateUserAccount $request, $id)
     {
         $user = User::find($id);
         $user->name = $request->input('name');
+        if($request->input('email')!=null){
         $user->email = $request->input('email');
+        }
         $user->role_id = $request->input('role_id');
         $user->password = Hash::make($request->input('password'));
         $user->save();

@@ -84,7 +84,7 @@ function updateForm(data){
   $("#email").val(data.email);
   $("#role").val(data.role_id);
   $("#password").val('');
-  $("#submit").attr("onclick","edit()");
+  $("#submit").attr("onclick",`edit('${data.email}')`);
 }
 function removeForm(){
   $("#user_id").val('');
@@ -146,11 +146,18 @@ function add(){
       $('.alert').fadeOut(3000)
 });
 }
-function edit(){
+function edit(email){
   id = $("#user_id").val();
+  if($('#email').val()==email)
+  {
+    newemail = '';
+  }
+  else{
+    newemail = $('#email').val();
+  }
   axios.put(`{{ url('/') }}/users/${id}`, {
     name: $('#name').val(),
-    email: $('#email').val(),
+    email: newemail,
     password: $('#password').val(),
     role_id: $('#role').val()
 })
