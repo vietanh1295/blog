@@ -26,7 +26,9 @@
     </td>
     <td>{{$user->created_at}}</td>
     <td>{{$user->updated_at}}</td>
-    <td><button class="btn" onclick="updateForm({{$user}})" data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button></td>
+    <td><button class="btn" onclick="updateForm({{$user}})" data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button>
+      <button class="btn" onclick="deleteData({{$user->id}})"><span class="fas fa-trash"></span></button>
+    </td>
   </tr>
   @endforeach
   @endif
@@ -91,6 +93,23 @@ function removeForm(){
   $("#password").val('');
   $("#submit").attr("onclick","add()");
 }
+function deleteData(id){
+  axios.delete(`{{ url('/') }}/users/${id}`, {
+})
+.then(function (data) {
+  $(`#user${data.data.id}`).addClass('highlight-danger');
+  setTimeout(
+    function(){
+      $(`#user${data.data.id}`).removeClass('highlight-danger');
+      $(`#user${data.data.id}`).remove();
+
+}, 800);
+
+})
+.catch(function (error) {
+  console.log(error);
+});
+}
 function add(){
   axios.post('{{ url('/') }}/users', {
     name: $('#name').val(),
@@ -108,7 +127,9 @@ function add(){
         <td>${role}</td>
         <td>${data.data.created_at}</td>
         <td>${data.data.updated_at}</td>
-        <td><button class="btn" onclick='updateForm(${jsondata})' data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button></td>
+        <td><button class="btn" onclick='updateForm(${jsondata})' data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button>
+        <button class="btn" onclick="deleteData(${data.data.id})"><span class="fas fa-trash"></span></button>
+        </td>
     </tr>
       `);
 
@@ -142,7 +163,9 @@ function edit(){
         <td>${role}</td>
         <td>${data.data.created_at}</td>
         <td>${data.data.updated_at}</td>
-        <td><button class="btn" onclick='updateForm(${jsondata})' data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button></td>
+        <td><button class="btn" onclick='updateForm(${jsondata})' data-toggle="modal" data-target="#myModal"><span class="fas fa-edit"></span></button>
+        <button class="btn" onclick="deleteData(${data.data.id})"><span class="fas fa-trash"></span></button>
+        </td>
       `);
     $(`#user${data.data.id}`).addClass('highlight-success');
     $('#close').click();
