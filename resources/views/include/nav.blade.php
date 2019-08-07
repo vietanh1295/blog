@@ -40,6 +40,11 @@
                           <a class="dropdown-item" href="{{ url('/') }}/articles/manage">
                               Manage my posts
                           </a>
+                          @if(auth()->user()->role_id==1)
+                          <a class="dropdown-item" href="{{ url('/') }}/users">
+                              Manage users
+                          </a>
+                          @endif
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

@@ -20,9 +20,9 @@
 }
 .highlight-danger{
   -webkit-animation-name: highlight-danger; /* Safari 4.0 - 8.0 */
-  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
   animation-name: highlight-danger;
-  animation-duration: 1s;
+  animation-duration: 2s;
 }
 /* .highlight{
   background:transparent;
