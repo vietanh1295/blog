@@ -1,6 +1,4 @@
 
-$(document).load(function () {
-// $('#example').DataTable();
 function updateForm(data){
   $("#article_id").val(data.id);
   $("#title").val(data.title);
@@ -14,13 +12,13 @@ function removeForm(){
   $("#submit").attr("onclick","add()");
 }
 function deleteData(id){
-  axios.delete(`{{ url('/') }}/articles/${id}`, {
+  axios.delete(`/articles/${id}`, {
 })
 .then(function (data) {
   $(`#article${data.data.id}`).addClass('highlight-danger');
   setTimeout(
     function(){
-      $('.highlight-danger').removeClass('highlight-danger');
+      $(`#article${data.data.id}`).removeClass('highlight-danger');
       $(`#article${data.data.id}`).remove();
 
 }, 800);
@@ -31,8 +29,9 @@ function deleteData(id){
 });
 }
 function add(){
-  axios.post('{{ url('/') }}/articles', {
+  axios.post('/articles', {
     title: $('#title').val(),
+    user_id: $('#user_id').val(),
     body: $('#body').val()
 })
 .then(function (data) {
@@ -51,7 +50,7 @@ function add(){
     var jsondata = JSON.stringify(data.data);
     $(`tbody`).prepend(`
     <tr id="article${data.data.id}" class="highlight-success">
-        <td><a href="{{ url('/') }}/articles/${data.data.id}">${title}</a></td>
+        <td><a href="/articles/${data.data.id}">${title}</a></td>
         <td>${body}</td>
         <td>${data.data.created_at}</td>
         <td>${data.data.updated_at}</td>
@@ -75,7 +74,7 @@ function add(){
 }
 function edit(){
   id = $('#article_id').val();
-  axios.put(`{{ url('/') }}/articles/${id}`, {
+  axios.put(`/articles/${id}`, {
     title: $('#title').val(),
     body: $('#body').val()
   })
@@ -94,7 +93,7 @@ function edit(){
     }
     var jsondata = JSON.stringify(data.data);
     $(`#article${data.data.id}`).html(`
-        <td><a href="{{ url('/') }}/articles/${data.data.id}">${title}</a></td>
+        <td><a href="/articles/${data.data.id}">${title}</a></td>
         <td>${body}</td>
         <td>${data.data.created_at}</td>
         <td>${data.data.updated_at}</td>
@@ -115,4 +114,3 @@ function edit(){
       $('.alert').fadeOut(3000)
   });
 }
-});

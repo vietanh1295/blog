@@ -54,6 +54,15 @@ class User extends Authenticatable
       $data = $article->manage($id);
       return $data;
     }
+    public function remove($id){
+      $user=User::find($id);
+      $articles = $user->articles;
+      foreach($articles as $article){
+        $article->delete();
+      }
+      $user->delete();
+      return $user;
+    }
     public function articles(){
       return $this->hasMany('App\Article')->orderBy("created_at","DESC");
     }
